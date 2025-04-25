@@ -7,20 +7,20 @@ from google import genai
 
 def main():
 
-    #Greets user on startup
+    # Greets user on startup
     print("\n<(^.^)> This is a command line interface for the AI, Gemini. <(^.^)> ")
     print("(Type 'exit' to exit.) ")
 
-    #Store API key,model name, and AI client for future use
-    API_KEY = os.environ.get("GEMINI_API_KEY_v2")
+    # Store API key,model name, and AI client for future use
+    API_KEY = os.environ.get("GEMINI_API_KEY")
     if not API_KEY:
-        raise EnvironmentError("GEMINI_API_KEY_v2 environment variable not set. Please set it in your system's environment variables.")
+        raise EnvironmentError("GEMINI_API_KEY environment variable not set. Please set it in your system's environment variables.")
     MODEL_NAME = "gemini-2.0-flash"
     genai_client = genai.Client(api_key=API_KEY)
 
     first_execution = True
 
-    #Main loop, loops after returning a response or exits the loop to end the program.
+    # Main loop, loops after returning a response or exits the loop to end the program.
     while True:
 
         if first_execution == True:
@@ -35,17 +35,17 @@ def main():
 
         print(f"\nYou said: \n\"{prompt_text}\"")
 
-        #Interacting with the API
+        # Interacting with the API
 
 
-        try: #Error handling
+        try: # Error handling
 
-            #Variable 'response' is the AI's response because it is set to a function which evaluates using our supplied data.
+            # Craft the API call within 'response', within 'ai_response'
+            # so that the API interaction is called and recorded by 'response', which 'ai_response' gets the text content from.
             response = genai_client.models.generate_content(
                 model = MODEL_NAME,
                 contents = prompt_text
                 )
-
             ai_response = response.text
 
         except Exception as e:
